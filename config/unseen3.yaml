@@ -1,1 +1,8 @@
-
+esp_game: 5
+Hdigit: 8
+NoisyMNIST_15000: 8
+OutdoorScene: 5
+UCI: 10
+Wikipedia_full: 2
+smallReuters: 6
+Caltech101all: 2
