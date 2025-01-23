@@ -37,7 +37,7 @@ class FusionLayer(nn.Module):
         return common_emb
 
 
-class MSLNet_classfier(nn.Module):
+class RLNet(nn.Module):
     def __init__(self, nfeats, n_view, n_classes, n, args, device):
         """
         :param nfeats: list of feature dimensions for each view
@@ -46,7 +46,7 @@ class MSLNet_classfier(nn.Module):
         :param n: number of samples
         :param args: Relevant parameters required to build the network
         """
-        super(MSLNet_classfier, self).__init__()
+        super(RLNet, self).__init__()
         self.n_classes = n_classes
         #  number of differentiable blocks
         self.layer_num = args.layer_num
