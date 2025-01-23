@@ -10,7 +10,7 @@ from util.loadMatData import load_data, features_to_Lap, generate_partition
 import scipy.sparse as sp
 from util.label_utils import reassign_labels, special_train_test_split
 from sklearn import metrics
-from MSLNet import MSLNet_classfier
+from RLNet import RLNet
 from sklearn.metrics import accuracy_score, f1_score, classification_report, confusion_matrix
 
 from util.config import load_config
@@ -121,7 +121,6 @@ def compute_loss(outputs, labels, mask_indices):
     logits = F.log_softmax(logits, dim=1)
     masked_logits = logits[mask_indices]
     masked_y_true = labels[mask_indices].to(device)
-    # h = F.one_hot(masked_y_true, num_classes)
     loss_seen = torch.nn.NLLLoss()(masked_logits, masked_y_true)
     #####################################################################################
 
@@ -136,7 +135,7 @@ def train(args, device, features, labels):
         " unseen_num:{},fusion:{}, layer_num:{}, training_rate:{}, lambda1:{}, lambda2:{}, gamma:{}, epoch:{} \n".format(
          args.unseen_num, args.fusion_type, args.layer_num, args.training_rate,
             args.lambda1, args.lambda2, args.gamma, args.epoch))
-    model = MSLNet_classfier(n_feats, n_view, num_classes, n, args, device).to(device)
+    model = RLNet(n_feats, n_view, num_classes, n, args, device).to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
 
     best_ACC = 0
